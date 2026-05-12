@@ -31,8 +31,7 @@ sudo sh ./enable-bbr.sh
 - FreeBSD:
   - 加载 `tcp_rack`、`tcp_bbr`
   - 立即设置：
-    - `net.inet.tcp.functions_default=rack`
-    - `net.inet.tcp.cc.algorithm=bbr`
+    - `net.inet.tcp.functions_default=bbr`
   - 持久化：
     - `/boot/loader.conf` 中加入 `tcp_rack_load="YES"`、`tcp_bbr_load="YES"`
     - `/etc/sysctl.conf` 中加入以上 TCP 参数

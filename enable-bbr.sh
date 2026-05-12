@@ -101,8 +101,7 @@ persist_freebsd() {
     append_loader_if_missing /boot/loader.conf tcp_rack_load YES
     append_loader_if_missing /boot/loader.conf tcp_bbr_load YES
 
-    append_if_missing /etc/sysctl.conf 'net.inet.tcp.functions_default=rack'
-    append_if_missing /etc/sysctl.conf 'net.inet.tcp.cc.algorithm=bbr'
+    append_if_missing /etc/sysctl.conf 'net.inet.tcp.functions_default=bbr'
 
     log "Persisted FreeBSD module/sysctl settings in /boot/loader.conf and /etc/sysctl.conf"
 }
@@ -115,15 +114,13 @@ enable_freebsd_bbr() {
         kldload tcp_bbr >/dev/null 2>&1 || true
     fi
 
-    sysctl net.inet.tcp.functions_default=rack >/dev/null
-    sysctl net.inet.tcp.cc.algorithm=bbr >/dev/null
+    sysctl net.inet.tcp.functions_default=bbr >/dev/null
 
     persist_freebsd
 
     stack=$(sysctl -n net.inet.tcp.functions_default 2>/dev/null || printf 'unknown')
-    cc_algo=$(sysctl -n net.inet.tcp.cc.algorithm 2>/dev/null || printf 'unknown')
 
-    log "FreeBSD BBR enabled: functions_default=$stack, cc.algorithm=$cc_algo"
+    log "FreeBSD BBR enabled: functions_default=$stack"
 }
 
 main() {
