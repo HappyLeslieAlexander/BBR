@@ -29,11 +29,11 @@ sudo sh ./enable-bbr.sh
   - 持久化到 `/etc/sysctl.d/99-bbr.conf`（若不存在该目录则写入 `/etc/sysctl.conf`）
 
 - FreeBSD:
-  - 加载 `tcp_rack`、`tcp_bbr`
+  - 加载 `tcp_bbr`
   - 立即设置：
     - `net.inet.tcp.functions_default=bbr`
   - 持久化：
-    - `/boot/loader.conf` 中加入 `tcp_rack_load="YES"`、`tcp_bbr_load="YES"`
+    - `/boot/loader.conf` 中加入 `tcp_bbr_load="YES"`
     - `/etc/sysctl.conf` 中加入以上 TCP 参数
 
 ## 说明

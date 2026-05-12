@@ -98,7 +98,6 @@ append_loader_if_missing() {
 persist_freebsd() {
     need_cmd sysctl
 
-    append_loader_if_missing /boot/loader.conf tcp_rack_load YES
     append_loader_if_missing /boot/loader.conf tcp_bbr_load YES
 
     append_if_missing /etc/sysctl.conf 'net.inet.tcp.functions_default=bbr'
@@ -110,7 +109,6 @@ enable_freebsd_bbr() {
     need_cmd sysctl
 
     if command -v kldload >/dev/null 2>&1; then
-        kldload tcp_rack >/dev/null 2>&1 || true
         kldload tcp_bbr >/dev/null 2>&1 || true
     fi
 
